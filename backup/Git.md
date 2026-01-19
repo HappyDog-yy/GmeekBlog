@@ -149,4 +149,89 @@ gitlab：自己买服务器，自建仓库
 
 - Github创建仓库
 ```New repository``` --> ```name``` --> ```Description简介``` --> ``` visibility选择public``` --> ```Add README 打开``` --> ```.gitignore忽略管理.git隐藏文件夹``` --> ```Create respository``` 
-创建成功之后，点击 ```code``` 显示的网址就是该远程仓库的网址。
+
+创建成功之后，点击 ```code``` 可复制远程仓库地址，如 ```https://github.com/HappyDog-yy/Git_test.git```。
+- 推送本地项目至远程仓库
+```bash
+1.给github仓库地址起别名origin
+git remote add origin 远程仓库地址
+2.将Git默认的分支名 ```master``` 重命名为 ```main```（Github默认为main）
+git branch -M main
+3.将本地 ```main``` 分支的代码推送到远程仓库 ```origin```
+git push -u origin main
+```
+其中，```-u``` 代表默认参数，代表以后push时，若不传递参数，默认 ```push``` 到 ```origin``` 仓库的 ```main``` 分支。
+- 拉取远程仓库代码至本地
+```进入目标文件夹``` --> ```git clone 仓库地址``` 
+- 家-github-公司协同开发
+
+1.家代码开发上传至github
+```bash
+git checkout dev
+git merge master
+touch a1.cpp
+git add .
+git commit -m 'Home code a1.cpp'
+手动提交dev分支代码至远程仓库
+git push origin dev
+```
+2.公司拉取github代码(更新而非克隆)
+```bash
+git checkout dev
+git pull origin dev
+```
+3.push公司代码
+```bash
+touch a2.cpp
+git add .
+git commit -m 'Company code a2.cpp'
+git push origin dev
+```
+···
+- 开发完毕，提交合并至master分支
+```bash
+git add .
+git commit -m '开发完毕'
+git push origin master
+git checkout master
+git merge dev
+git push origin master
+```
+**注意！** 处于dev分支开发功能时，首先 **合并** master分支的最新代码，在此基础上开发，且**只执行一次**。
+### 3.4 rebase的使用
+#### 3.4.1同步上游分支
+假设你在 ```origin/dev``` 分支上做开发，主分支 ```master``` 上有了新的提交，此时想同步到dev分支：
+```bash
+#切换主分支，拉取代码
+git checkout master
+git pull origin master
+#dev分支变基
+git checkout dev
+git rebase master
+```
+- 这样做可以让dev分支上的提交，应用到 ```master``` 的最新提交之后。且提交历史为一条直线。
+#### 3.4.2合并提交、修改记录
+- 对最近三次提交记录进行整理
+```bash
+git rebase -i HEAD~3
+```
+执行后会打开一个vim编辑器，里面列出最近3次提交，以 ```pick``` 开头：
+
+<img width="693" height="401" alt="Image" src="https://github.com/user-attachments/assets/e1677040-2dce-422b-8540-f15c07a03432" />
+
+可通过修改pick为图片中 ```command``` 内容传递指令，常用的指令如下：
+- ```s``` ：把该提交合并至上一个提交
+- ```f``` ：合并该提交，并丢弃该提交的说明
+- ```r``` ：修改提交说明
+- ```e``` ：修改提交过的代码
+- ```pick``` ：保留该提交
+
+ ```Esc``` 退出编辑模式 --> ```:wq``` 退出交互式
+
+- 注意：变基多用于自己的开发记录上，不要在已push的分支或公共分支上 ```rebase```。
+- 若在 ```git rebase``` 的过程中遇到冲突，先解决冲突，后中断或继续 ```git rebase``` 的执行：
+```bash
+git rebase --continue
+git rebase --abort
+```
+```Beyond Compare``` ：可帮助快速解决冲突的软件。

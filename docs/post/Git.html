@@ -239,9 +239,86 @@ gitlab：自己买服务器，自建仓库</p>
 </blockquote>
 <ul>
 <li>Github创建仓库<br>
-<code class="notranslate">New repository</code> --&gt; <code class="notranslate">name</code> --&gt; <code class="notranslate">Description简介</code> --&gt; <code class="notranslate"> visibility选择public</code> --&gt; <code class="notranslate">Add README 打开</code> --&gt; <code class="notranslate">.gitignore忽略管理.git隐藏文件夹</code> --&gt; <code class="notranslate">Create respository</code><br>
-创建成功之后，点击 <code class="notranslate">code</code> 显示的网址就是该远程仓库的网址。</li>
-</ul></div>
+<code class="notranslate">New repository</code> --&gt; <code class="notranslate">name</code> --&gt; <code class="notranslate">Description简介</code> --&gt; <code class="notranslate"> visibility选择public</code> --&gt; <code class="notranslate">Add README 打开</code> --&gt; <code class="notranslate">.gitignore忽略管理.git隐藏文件夹</code> --&gt; <code class="notranslate">Create respository</code></li>
+</ul>
+<p>创建成功之后，点击 <code class="notranslate">code</code> 可复制远程仓库地址，如 <code class="notranslate">https://github.com/HappyDog-yy/Git_test.git</code>。</p>
+<ul>
+<li>推送本地项目至远程仓库</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">1.给github仓库地址起别名origin
+git remote add origin 远程仓库地址
+2.将Git默认的分支名 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>master<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span> 重命名为 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>main<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span>（Github默认为main）
+git branch -M main
+3.将本地 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>main<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span> 分支的代码推送到远程仓库 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>origin<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span>
+git push -u origin main</pre></div>
+<p>其中，<code class="notranslate">-u</code> 代表默认参数，代表以后push时，若不传递参数，默认 <code class="notranslate">push</code> 到 <code class="notranslate">origin</code> 仓库的 <code class="notranslate">main</code> 分支。</p>
+<ul>
+<li>拉取远程仓库代码至本地<br>
+<code class="notranslate">进入目标文件夹</code> --&gt; <code class="notranslate">git clone 仓库地址</code></li>
+<li>家-github-公司协同开发</li>
+</ul>
+<p>1.家代码开发上传至github</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout dev
+git merge master
+touch a1.cpp
+git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>Home code a1.cpp<span class="pl-pds">'</span></span>
+手动提交dev分支代码至远程仓库
+git push origin dev</pre></div>
+<p>2.公司拉取github代码(更新而非克隆)</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout dev
+git pull origin dev</pre></div>
+<p>3.push公司代码</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">touch a2.cpp
+git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>Company code a2.cpp<span class="pl-pds">'</span></span>
+git push origin dev</pre></div>
+<p>···</p>
+<ul>
+<li>开发完毕，提交合并至master分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>开发完毕<span class="pl-pds">'</span></span>
+git push origin master
+git checkout master
+git merge dev
+git push origin master</pre></div>
+<p><strong>注意！</strong> 处于dev分支开发功能时，首先 <strong>合并</strong> master分支的最新代码，在此基础上开发，且<strong>只执行一次</strong>。</p>
+<h3>3.4 rebase的使用</h3>
+<h4>3.4.1同步上游分支</h4>
+<p>假设你在 <code class="notranslate">origin/dev</code> 分支上做开发，主分支 <code class="notranslate">master</code> 上有了新的提交，此时想同步到dev分支：</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>切换主分支，拉取代码</span>
+git checkout master
+git pull origin master
+<span class="pl-c"><span class="pl-c">#</span>dev分支变基</span>
+git checkout dev
+git rebase master</pre></div>
+<ul>
+<li>这样做可以让dev分支上的提交，应用到 <code class="notranslate">master</code> 的最新提交之后。且提交历史为一条直线。</li>
+</ul>
+<h4>3.4.2合并提交、修改记录</h4>
+<ul>
+<li>对最近三次提交记录进行整理</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git rebase -i HEAD~3</pre></div>
+<p>执行后会打开一个vim编辑器，里面列出最近3次提交，以 <code class="notranslate">pick</code> 开头：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e1677040-2dce-422b-8540-f15c07a03432"><img width="693" height="401" alt="Image" src="https://github.com/user-attachments/assets/e1677040-2dce-422b-8540-f15c07a03432" style="max-width: 100%; height: auto; max-height: 401px;"></a></p>
+<p>可通过修改pick为图片中 <code class="notranslate">command</code> 内容传递指令，常用的指令如下：</p>
+<ul>
+<li><code class="notranslate">s</code> ：把该提交合并至上一个提交</li>
+<li><code class="notranslate">f</code> ：合并该提交，并丢弃该提交的说明</li>
+<li><code class="notranslate">r</code> ：修改提交说明</li>
+<li><code class="notranslate">e</code> ：修改提交过的代码</li>
+<li><code class="notranslate">pick</code> ：保留该提交</li>
+</ul>
+<p><code class="notranslate">Esc</code> 退出编辑模式 --&gt; <code class="notranslate">:wq</code> 退出交互式</p>
+<ul>
+<li>注意：变基多用于自己的开发记录上，不要在已push的分支或公共分支上 <code class="notranslate">rebase</code>。</li>
+<li>若在 <code class="notranslate">git rebase</code> 的过程中遇到冲突，先解决冲突，后中断或继续 <code class="notranslate">git rebase</code> 的执行：</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git rebase --continue
+git rebase --abort</pre></div>
+<p><code class="notranslate">Beyond Compare</code> ：可帮助快速解决冲突的软件。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
