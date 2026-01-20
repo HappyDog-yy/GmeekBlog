@@ -95,6 +95,36 @@ git checkout -- 文件名
 git reset HEAD -- 文件名
 ```
 仅撤销暂存命令，对于工作区的修改仍保留，文件状态由绿色变成红色。
+### 2.5 第五阶段：Git配置文件
+- 项目配置文件：项目/.git/config
+- 仅对当前项目有效
+```bash
+git config --local user.name 'HappyDog-yy'
+git config --local user.email 'roseyy@xx.com'
+```
+- 全局配置文件：Git安装路径\etc\gitconfig
+- 对当前用户的所有项目有效
+```bash
+git config --gobal user.name 'HappyDog-yy'
+git config --gobal user.email 'roseyy@xx.com'
+```
+- 系统配置文件
+- 对当前电脑系统的所有git用户和所有git项目有效
+```bash
+git config --system user.name 'HappyDog-yy'
+git config --system user.email 'roseyy@xx.com'
+
+!!!执行该命令需要root权限
+```
+- 查看当前生效的配置
+```bash
+git config --list
+```
+- 添加远程仓库
+```bash
+git remote add origin 仓库地址
+```
+该命令默认仅在当前项目生效，相当于加上了 ```--local```。
 ## 第三章 分支
 ### 3.1初识分支
 
@@ -269,5 +299,69 @@ git tag -a v1 -m '第一版'
 git push origin --tags
 ```
 - 邀请成员加入组织-->参与项目-->修改 ```Read/Write``` 权限
-- leader做代码Review
-使用 ```pull request``` 功能
+- leader做代码Review ：使用 ```pull request``` 功能
+ ```Settings``` 设置--> ```Branches``` 分支--> ```Add branch ruleset``` 添加分支规则集--> ```Ruleset Name``` -->勾选 ```Require a pull request before merging``` 所有体检必须先在非目标分支上进行，并通过 ```pull request``` 提交，才能被合并。
+- employee提交pull request
+```new pull request ``` -->选择分支合并-->```dev```-->```dev```
+ ```ddz```分支合并到 ```dev``` 分支： ```base```为 ```dev```，```compare```为 ```ddz```
+### 4.2 开源仓库贡献代码流程
+- fork源代码：将别人的源代码拷贝到自己的远程仓库
+- 在自己仓库修改代码
+- 给源代码的作者提交修复bug的申请（pull request）
+### 4.3 Git免密码登录
+- URL实现
+```bash
+仓库地址：https://github.com/HappyDog-yy/Git_test.git
+添加用户信息：https://用户名：密码@github.com/HappyDog-yy/Git_test.git
+```
+- SSH实现
+```bash
+1.生成公钥和私钥
+   ssh-keygen
+   默认放在~/.ssh目录下，is_rsa.pub公钥、id_rsa.pub私钥
+2.拷贝公钥内容，设置到github中
+3.在git本地配置ssh地址
+   git remote add origin git@github.com:HappyDog-yy/Git_test.git
+4.使用
+   git push origin master
+```
+- Git自动管理凭证
+- Github CLI
+使用GitHub官方命令行工具 ```gh``` 直接操作，命令为以下格式：
+```bash
+gh repo clone HappyDog-yy/Git_test
+```
+### 4.4 Git忽略文件
+不希望Git管理文件夹中的所有文件时，创建 ```.gitignore``` 文件，在该文件中列出不希望被管理的文件名，此时使用 ```git status``` 查看文件时，检测不到已列文件。
+- 忽略文件或目录
+```bash
+#忽略dist目录
+dist/
+
+#忽略pack.json文件
+pack.json
+```
+- 通配符*
+```bash
+#忽略所有log后缀的文件
+*.log
+#但不忽略today.log-->取反
+!today.log
+
+#忽略所有temp开头的文件
+temp*
+```
+- 递归匹配**：可匹配任意深度的目录
+```bash
+#忽略项目中任意位置的test.log文件
+**/test.log
+
+#忽略所有目录下的_pycache_文件夹
+**/_pycache_/
+```
+由于我们的关注有限，可在[该地址](https://github.com/github/gitignore)找到各种语言的、较为全面的 ```.gitignore``` 文件
+### 4.5 任务管理
+- issues：文档以及任务管理
+- wiki：对项目的介绍等，项目文档说明。
+
+[# Git八股，稍后整理~](https://zhuanlan.zhihu.com/p/1935037099154842636)

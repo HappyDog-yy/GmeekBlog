@@ -190,6 +190,36 @@ git add 文件名(管理某文件)</pre></div>
 </ul>
 <div class="highlight highlight-source-shell"><pre class="notranslate">git reset HEAD -- 文件名</pre></div>
 <p>仅撤销暂存命令，对于工作区的修改仍保留，文件状态由绿色变成红色。</p>
+<h3>2.5 第五阶段：Git配置文件</h3>
+<ul>
+<li>项目配置文件：项目/.git/config</li>
+<li>仅对当前项目有效</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --local user.name <span class="pl-s"><span class="pl-pds">'</span>HappyDog-yy<span class="pl-pds">'</span></span>
+git config --local user.email <span class="pl-s"><span class="pl-pds">'</span>roseyy@xx.com<span class="pl-pds">'</span></span></pre></div>
+<ul>
+<li>全局配置文件：Git安装路径\etc\gitconfig</li>
+<li>对当前用户的所有项目有效</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --gobal user.name <span class="pl-s"><span class="pl-pds">'</span>HappyDog-yy<span class="pl-pds">'</span></span>
+git config --gobal user.email <span class="pl-s"><span class="pl-pds">'</span>roseyy@xx.com<span class="pl-pds">'</span></span></pre></div>
+<ul>
+<li>系统配置文件</li>
+<li>对当前电脑系统的所有git用户和所有git项目有效</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --system user.name <span class="pl-s"><span class="pl-pds">'</span>HappyDog-yy<span class="pl-pds">'</span></span>
+git config --system user.email <span class="pl-s"><span class="pl-pds">'</span>roseyy@xx.com<span class="pl-pds">'</span></span>
+
+<span class="pl-k">!!!</span>执行该命令需要root权限</pre></div>
+<ul>
+<li>查看当前生效的配置</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --list</pre></div>
+<ul>
+<li>添加远程仓库</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git remote add origin 仓库地址</pre></div>
+<p>该命令默认仅在当前项目生效，相当于加上了 <code class="notranslate">--local</code>。</p>
 <h2>第三章 分支</h2>
 <h3>3.1初识分支</h3>
 <p>不同版本之间通过指针建立联系，v2在v1的基础上修改，增量保存，只保存相对于v1新增和修改的部分。这样不仅更节省空间，生成版本的速度也更快。</p>
@@ -350,9 +380,76 @@ git config --local mergetool.keepBackup <span class="pl-c1">false</span></pre></
 git push origin --tags</pre></div>
 <ul>
 <li>邀请成员加入组织--&gt;参与项目--&gt;修改 <code class="notranslate">Read/Write</code> 权限</li>
-<li>leader做代码Review<br>
-使用 <code class="notranslate">pull request</code> 功能</li>
-</ul></div>
+<li>leader做代码Review ：使用 <code class="notranslate">pull request</code> 功能<br>
+<code class="notranslate">Settings</code> 设置--&gt; <code class="notranslate">Branches</code> 分支--&gt; <code class="notranslate">Add branch ruleset</code> 添加分支规则集--&gt; <code class="notranslate">Ruleset Name</code> --&gt;勾选 <code class="notranslate">Require a pull request before merging</code> 所有体检必须先在非目标分支上进行，并通过 <code class="notranslate">pull request</code> 提交，才能被合并。</li>
+<li>employee提交pull request<br>
+<code class="notranslate">new pull request </code> --&gt;选择分支合并--&gt;<code class="notranslate">dev</code>--&gt;<code class="notranslate">dev</code><br>
+<code class="notranslate">ddz</code>分支合并到 <code class="notranslate">dev</code> 分支： <code class="notranslate">base</code>为 <code class="notranslate">dev</code>，<code class="notranslate">compare</code>为 <code class="notranslate">ddz</code></li>
+</ul>
+<h3>4.2 开源仓库贡献代码流程</h3>
+<ul>
+<li>fork源代码：将别人的源代码拷贝到自己的远程仓库</li>
+<li>在自己仓库修改代码</li>
+<li>给源代码的作者提交修复bug的申请（pull request）</li>
+</ul>
+<h3>4.3 Git免密码登录</h3>
+<ul>
+<li>URL实现</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">仓库地址：https://github.com/HappyDog-yy/Git_test.git
+添加用户信息：https://用户名：密码@github.com/HappyDog-yy/Git_test.git</pre></div>
+<ul>
+<li>SSH实现</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">1.生成公钥和私钥
+   ssh-keygen
+   默认放在~/.ssh目录下，is_rsa.pub公钥、id_rsa.pub私钥
+2.拷贝公钥内容，设置到github中
+3.在git本地配置ssh地址
+   git remote add origin git@github.com:HappyDog-yy/Git_test.git
+4.使用
+   git push origin master</pre></div>
+<ul>
+<li>Git自动管理凭证</li>
+<li>Github CLI<br>
+使用GitHub官方命令行工具 <code class="notranslate">gh</code> 直接操作，命令为以下格式：</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">gh repo clone HappyDog-yy/Git_test</pre></div>
+<h3>4.4 Git忽略文件</h3>
+<p>不希望Git管理文件夹中的所有文件时，创建 <code class="notranslate">.gitignore</code> 文件，在该文件中列出不希望被管理的文件名，此时使用 <code class="notranslate">git status</code> 查看文件时，检测不到已列文件。</p>
+<ul>
+<li>忽略文件或目录</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>忽略dist目录</span>
+dist/
+
+<span class="pl-c"><span class="pl-c">#</span>忽略pack.json文件</span>
+pack.json</pre></div>
+<ul>
+<li>通配符*</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>忽略所有log后缀的文件</span>
+<span class="pl-k">*</span>.log
+<span class="pl-c"><span class="pl-c">#</span>但不忽略today.log--&gt;取反</span>
+<span class="pl-k">!</span>today.log
+
+<span class="pl-c"><span class="pl-c">#</span>忽略所有temp开头的文件</span>
+temp<span class="pl-k">*</span></pre></div>
+<ul>
+<li>递归匹配**：可匹配任意深度的目录</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>忽略项目中任意位置的test.log文件</span>
+<span class="pl-k">**</span>/test.log
+
+<span class="pl-c"><span class="pl-c">#</span>忽略所有目录下的_pycache_文件夹</span>
+<span class="pl-k">**</span>/_pycache_/</pre></div>
+<p>由于我们的关注有限，可在<a href="https://github.com/github/gitignore">该地址</a>找到各种语言的、较为全面的 <code class="notranslate">.gitignore</code> 文件</p>
+<h3>4.5 任务管理</h3>
+<ul>
+<li>issues：文档以及任务管理</li>
+<li>wiki：对项目的介绍等，项目文档说明。</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/1935037099154842636" rel="nofollow"># Git八股，稍后整理~</a></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
