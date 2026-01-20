@@ -138,7 +138,14 @@ git add 文件名(管理某文件)</pre></div>
 <pre class="notranslate"><code class="notranslate">git log
 </code></pre>
 <p>可看到每个提交记录的版本号，便于后续回滚操作</p>
-<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962"><img width="589" height="349" alt="Image" src="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962" style="max-width: 100%; height: auto; max-height: 349px;"></a></p>
+<ul>
+<li>记录的图形展示+自定义格式</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">git log --graph --pretty=format:“%h %s”
+</code></pre>
+<p><code class="notranslate">%h</code>：显示哈希值，即版本号<br>
+<code class="notranslate">%s</code>：显示提交说明<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962"><img width="589" height="349" alt="Image" src="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962" style="max-width: 100%; height: auto; max-height: 349px;"></a></p>
 <ul>
 <li>查看管理状态</li>
 </ul>
@@ -318,7 +325,34 @@ git rebase master</pre></div>
 </ul>
 <div class="highlight highlight-source-shell"><pre class="notranslate">git rebase --continue
 git rebase --abort</pre></div>
-<p><code class="notranslate">Beyond Compare</code> ：可帮助快速解决冲突的软件。</p></div>
+<p><code class="notranslate">Beyond Compare</code> ：可帮助快速解决冲突的软件。<br>
+1.安装<br>
+2.在Git中配置<br>
+D:\App\Git\BeyondCompare 5</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>设置当前git仓库的默认合并工具为 ```bc5```.</span>
+git config --local merge.tool bc5
+<span class="pl-c"><span class="pl-c">#</span>指定 ```bc5``` 程序的安装路径</span>
+git config --local mergetool.path <span class="pl-s"><span class="pl-pds">'</span>D:\App\Git\BeyondCompare 5<span class="pl-pds">'</span></span>
+<span class="pl-c"><span class="pl-c">#</span>关闭该工具处理完冲突自动生成的备份文件</span>
+git config --local mergetool.keepBackup <span class="pl-c1">false</span></pre></div>
+<p><code class="notranslate">--local</code> 表示只对当前项目有效。<br>
+3.应用Beyond Compare解决冲突</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git mergetool</pre></div>
+<h2>第四章 多人协同开发</h2>
+<h3>4.1GIt Flow工作流</h3>
+<p>协同开发时，每一个开发者创建一个分支，开发完毕且通过测试之后合并分支。工作流如下图所示：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2bbe5d34-add9-492f-88d6-54db69aab44e"><img src="https://github.com/user-attachments/assets/2bbe5d34-add9-492f-88d6-54db69aab44e" alt="Image" style="max-width: 100%;"></a></p>
+<p>在Github上创建组织，之后邀请成员加入组织便可协同开发组织中的项目。</p>
+<ul>
+<li>为版本添加标签 <code class="notranslate">tag</code> 并推送</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git tag -a v1 -m <span class="pl-s"><span class="pl-pds">'</span>第一版<span class="pl-pds">'</span></span>
+git push origin --tags</pre></div>
+<ul>
+<li>邀请成员加入组织--&gt;参与项目--&gt;修改 <code class="notranslate">Read/Write</code> 权限</li>
+<li>leader做代码Review<br>
+使用 <code class="notranslate">pull request</code> 功能</li>
+</ul></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

@@ -45,7 +45,12 @@ git commit -m '该版本的描述信息'
 git log
 ```
 可看到每个提交记录的版本号，便于后续回滚操作
-
+- 记录的图形展示+自定义格式
+```
+git log --graph --pretty=format:“%h %s”
+```
+```%h```：显示哈希值，即版本号
+```%s```：显示提交说明
 <img width="589" height="349" alt="Image" src="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962" />
 
 - 查看管理状态
@@ -235,3 +240,34 @@ git rebase --continue
 git rebase --abort
 ```
 ```Beyond Compare``` ：可帮助快速解决冲突的软件。
+1.安装
+2.在Git中配置
+D:\App\Git\BeyondCompare 5
+```bash
+#设置当前git仓库的默认合并工具为 ```bc5```.
+git config --local merge.tool bc5
+#指定 ```bc5``` 程序的安装路径
+git config --local mergetool.path 'D:\App\Git\BeyondCompare 5'
+#关闭该工具处理完冲突自动生成的备份文件
+git config --local mergetool.keepBackup false
+```
+```--local``` 表示只对当前项目有效。
+3.应用Beyond Compare解决冲突
+```bash
+git mergetool
+```
+## 第四章 多人协同开发
+### 4.1GIt Flow工作流
+协同开发时，每一个开发者创建一个分支，开发完毕且通过测试之后合并分支。工作流如下图所示：
+
+![Image](https://github.com/user-attachments/assets/2bbe5d34-add9-492f-88d6-54db69aab44e)
+
+在Github上创建组织，之后邀请成员加入组织便可协同开发组织中的项目。
+- 为版本添加标签 ```tag``` 并推送
+```bash
+git tag -a v1 -m '第一版'
+git push origin --tags
+```
+- 邀请成员加入组织-->参与项目-->修改 ```Read/Write``` 权限
+- leader做代码Review
+使用 ```pull request``` 功能
