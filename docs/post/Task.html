@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://HappyDog-yy.github.io/GmeekBlog/post/Task.html">
 <meta property="og:image" content="https://github.com/user-attachments/assets/00cd8470-961f-4cae-9688-0708e6132300">
 <title>Task</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -113,8 +113,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">PRId64</code> --&gt;有符号64位整数格式符.</li>
 </ul>
 <p>！使用前需包含头文件**&lt;inttypes.h&gt;**，格式宏本身是字符串，需要双引号包裹。</p>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-smi">uint8_t</span> <span class="pl-s1">age</span> <span class="pl-c1">=</span> <span class="pl-c1">18</span>;
-<span class="pl-en">printf</span>(<span class="pl-s">"年龄：%"</span><span class="pl-s1">PRIu8</span><span class="pl-s">""</span>, <span class="pl-s1">age</span>);</pre></div>
+<pre lang="c" class="notranslate"><code class="notranslate">uint8_t age = 18;
+printf("年龄：%"PRIu8"", age);
+</code></pre>
 <h3>2.C语言从源码到可执行文件经历的四个阶段</h3>
 <p>四个阶段分别是：预处理、编译、汇编、链接</p>
 <h4>（1）预处理器预处理阶段 <code class="notranslate">hello.c</code> --&gt;<code class="notranslate">hello.i</code></h4>
@@ -233,20 +234,22 @@ const局部：语法级只读，编译器禁止直接修改，但栈内存本身
 <li>函数声明</li>
 <li>类型定义：结构体定义、枚举定义、为类型取的别名等</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span>结构体定义</span>
-<span class="pl-k">typedef</span> <span class="pl-k">struct</span>{
-    <span class="pl-k">int</span> id;
-    <span class="pl-k">char</span> name[<span class="pl-c1">20</span>];
+<pre lang="cpp" class="notranslate"><code class="notranslate">//结构体定义
+typedef struct{
+    int id;
+    char name[20];
 }student;
 
-<span class="pl-c"><span class="pl-c">//</span>枚举定义</span>
-<span class="pl-k">enum</span> Color {RED, GREEN, BLUE};</pre></div>
+//枚举定义
+enum Color {RED, GREEN, BLUE};
+</code></pre>
 <ul>
 <li>宏定义和const常量<br>
 const全局常量在只读段，不占用源文件内存</li>
 <li>全局变量声明，需加extern</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">extern</span> <span class="pl-k">int</span> g_count;</pre></div>
+<pre lang="cpp" class="notranslate"><code class="notranslate">extern int g_count;
+</code></pre>
 <h3>7.头文件重复包含问题</h3>
 <p>假设你的代码结构如下：</p>
 <ul>
@@ -263,18 +266,20 @@ const全局常量在只读段，不占用源文件内存</li>
 <ul>
 <li><code class="notranslate">pragma once</code> ：极简高效</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate">#<span class="pl-k">pragma</span> once</pre></div>
+<pre lang="cpp" class="notranslate"><code class="notranslate">#pragma once
+</code></pre>
 <pre class="notranslate"><code class="notranslate">- 写在头文件第一行，告诉编译器当前头文件仅处理一次；
 - 兼容性：主流编译器（GCC/Clang/MSVC）全支持，工业项目首选
 </code></pre>
 <ul>
 <li>头文件保护法</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span> b.h</span>
-#<span class="pl-k">ifndef</span> B_H_
-#<span class="pl-k">define</span> <span class="pl-en">B_H_</span>
-<span class="pl-k">void</span> <span class="pl-en">fun_c</span>();
-#<span class="pl-k">endif</span></pre></div>
+<pre lang="cpp" class="notranslate"><code class="notranslate">// b.h
+#ifndef B_H_
+#define B_H_
+void fun_c();
+#endif
+</code></pre>
 <p>用 <code class="notranslate">#ifndef/#define/#endif</code> 包裹头文件内容，通过唯一宏名标记是否已处理。</p>
 <ul>
 <li>宏命名规范：项目前缀_文件名大写_后缀，注意避免宏名冲突。</li>
@@ -282,7 +287,8 @@ const全局常量在只读段，不占用源文件内存</li>
 <h3>8.C内存布局笔记</h3>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5ec7eae5-5fca-4680-aa63-85e450371f7e"><img src="https://github.com/user-attachments/assets/5ec7eae5-5fca-4680-aa63-85e450371f7e" alt="Image" style="max-width: 100%;"></a></p>
 <p>（1）.文本段：<code class="notranslate">.text</code> ,存放机器码，编译链接阶段已经确定大小，只读权限。</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate">objdump -h 可执行文件</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">objdump -h 可执行文件
+</code></pre>
 <p>（2）.<strong>静态数据区</strong>：分为未初始化的<code class="notranslate">.bss</code> 和已初始化的<code class="notranslate">.data</code> 、<code class="notranslate">.rodata</code></p>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/6692b6c5-9832-4b26-b822-fc4c0bda0a73"><img src="https://github.com/user-attachments/assets/6692b6c5-9832-4b26-b822-fc4c0bda0a73" alt="Image" style="max-width: 100%;"></a></p>
 <p>未初始化数据区 <code class="notranslate">.bss</code> ：大小在编译时确定，运行时可读可写</p>
@@ -292,8 +298,9 @@ const全局常量在只读段，不占用源文件内存</li>
 <li>操作系统加载程序时，读取这些元信息，在内存中预留出相应的内存空间，全部置0；</li>
 <li>为大型未初始化的数据节省磁盘空间，eg:未初始化或初始化为0的大型数组。</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>反汇编</span>
-objdump -h 可执行文件</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">#反汇编
+objdump -h 可执行文件
+</code></pre>
 <p>已初始化数据区<code class="notranslate">.data</code> 、<code class="notranslate">.rodata</code></p>
 <ul>
 <li>大小在构建阶段就被完全确定下来，从可执行文件直接复制到内存</li>
@@ -340,7 +347,7 @@ if(""!=""){
     var startSite=new Date("");
     var diff=now.getTime()-startSite.getTime();
     var diffDay=Math.floor(diff/(1000*60*60*24));
-    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" • ";
 }
 </script></div>
 </body>
@@ -385,6 +392,7 @@ document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
 function openComments(){
     cm=document.getElementById("comments");
     cmButton=document.getElementById("cmButton");
+    cmButton.disabled=true;
     cmButton.innerHTML="loading";
     span=document.createElement("span");
     span.setAttribute("class","AnimatedEllipsis");
