@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.com/user-attachments/assets/00cd8470-961f-4cae-9688-0708e6132300"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# Git实战
+## 第一章 快速入门
+### 1.1什么是Git
+
+> Git是一款分布式版本控制软件。">
+<meta property="og:title" content="Git">
+<meta property="og:description" content="# Git实战
+## 第一章 快速入门
+### 1.1什么是Git
+
+> Git是一款分布式版本控制软件。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://HappyDog-yy.github.io/GmeekBlog/post/Git.html">
+<meta property="og:image" content="https://github.com/user-attachments/assets/00cd8470-961f-4cae-9688-0708e6132300">
+<title>Git</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Git</h1>
+<div class="title-right">
+    <a href="https://HappyDog-yy.github.io/GmeekBlog" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/HappyDog-yy/GmeekBlog/issues/1" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>Git实战</h1>
+<h2>第一章 快速入门</h2>
+<h3>1.1什么是Git</h3>
+<blockquote>
+<p>Git是一款分布式版本控制软件。</p>
+</blockquote>
+<h3>1.2为什么要做版本控制</h3>
+<blockquote>
+<p>版本控制的必要性：可快速回滚到之前的某个状态</p>
+</blockquote>
+<h3>1.3安装Git</h3>
+<p>Linux系统</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo apt-get install git</pre></div>
+<p>Windows系统</p>
+<pre class="notranslate"><code class="notranslate">下载地址：https://git-scm.com/
+</code></pre>
+<p>下载成功之后，在任意文件夹中右键单击，可看到选项 <code class="notranslate">Open Git GUI here</code> 和 <code class="notranslate">Open Git Bash here</code>。</p>
+<h2>第二章 东北热创业史</h2>
+<h3>2.1 第一阶段：单枪匹马开始干</h3>
+<ul>
+<li>Git管理文件夹的步骤</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">1.进入要管理的文件夹
+2.初始化（相当于给Git一个权限，文件夹下会生成.Git隐藏文件夹）
+3.管理
+4.生成版本
+</code></pre>
+<ul>
+<li>初始化</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git init</pre></div>
+<ul>
+<li>管理</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git add .(管理当前目录下的所有文件) 
+git add 文件名(管理某文件)</pre></div>
+<ul>
+<li>生成版本</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">git commit -m '该版本的描述信息'
+</code></pre>
+<ul>
+<li>查看版本记录</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">git log
+</code></pre>
+<p>可看到每个提交记录的版本号，便于后续回滚操作</p>
+<ul>
+<li>记录的图形展示+自定义格式</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">git log --graph --pretty=format:“%h %s”
+</code></pre>
+<p><code class="notranslate">%h</code>：显示哈希值，即版本号<br>
+<code class="notranslate">%s</code>：显示提交说明<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962"><img width="589" height="349" alt="Image" src="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962" style="max-width: 100%; height: auto; max-height: 349px;; aspect-ratio: 589 / 349; background-color: var(--bgColor-muted); border-radius: 6px; display: block" class="js-gh-image-fallback"></a></p>
+<ul>
+<li>查看管理状态</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">git status
+</code></pre>
+<pre class="notranslate"><code class="notranslate">红色-代表未管理的文件，包括新增文件、修改过内容的文件
+绿色-代表已管理但还未提交至版本库
+不显示-代表已管理并提交至版本库
+</code></pre>
+<ul>
+<li>Git三大区域</li>
+</ul>
+<blockquote>
+<p>工作区：实际编辑、修改文件的地方<br>
+暂存区：临时存放即将提交的修改<br>
+版本库：存储所有提交记录的数据库</p>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/c43bc29d-5da4-4895-87fb-5b6ef2715ed4"><img width="2000" height="1522" alt="Image" src="https://github.com/user-attachments/assets/c43bc29d-5da4-4895-87fb-5b6ef2715ed4" style="max-width: 100%; height: auto; max-height: 1522px;; aspect-ratio: 2000 / 1522; background-color: var(--bgColor-muted); border-radius: 6px; display: block" class="js-gh-image-fallback"></a></p>
+<h3>2.2 第二阶段：拓展新功能</h3>
+<p>修改文件之后，文件状态变为未管理的红色，可重新 <code class="notranslate">add</code> 并 <code class="notranslate">commit</code> 至版本库。</p>
+<h3>2.3 第三阶段：回滚</h3>
+<ul>
+<li>回滚至之前版本</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git reset --hard 版本号</pre></div>
+<p>版本号通过 <code class="notranslate">git log</code> 命令获取</p>
+<ul>
+<li>回滚至之后版本</li>
+</ul>
+<blockquote>
+<p>回滚至v2之后， <code class="notranslate">git log</code> 命令查看不到v3的版本号，此时再使用 <code class="notranslate">git reflog</code> 便可查看v3版本号，如下所示：</p>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/25724509-7277-4d76-bbe4-73cedaf7270d"><img width="724" height="363" alt="Image" src="https://github.com/user-attachments/assets/25724509-7277-4d76-bbe4-73cedaf7270d" style="max-width: 100%; height: auto; max-height: 363px;; aspect-ratio: 724 / 363; background-color: var(--bgColor-muted); border-radius: 6px; display: block" class="js-gh-image-fallback"></a></p>
+<h3>2.4 第四阶段：三大区域之间的转换</h3>
+<ul>
+<li>撤销对于某文件的修改</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout -- 文件名</pre></div>
+<p>该命令可用于撤销未 <code class="notranslate">add</code> 文件的修改，用版本库里的文件直接覆盖（直接丢弃工作区的修改），无法撤销。</p>
+<ul>
+<li>撤销<code class="notranslate">add</code>暂存命令</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git reset HEAD -- 文件名</pre></div>
+<p>仅撤销暂存命令，对于工作区的修改仍保留，文件状态由绿色变成红色。</p>
+<h3>2.5 第五阶段：Git配置文件</h3>
+<ul>
+<li>项目配置文件：项目/.git/config</li>
+<li>仅对当前项目有效</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --local user.name <span class="pl-s"><span class="pl-pds">'</span>HappyDog-yy<span class="pl-pds">'</span></span>
+git config --local user.email <span class="pl-s"><span class="pl-pds">'</span>roseyy@xx.com<span class="pl-pds">'</span></span></pre></div>
+<ul>
+<li>全局配置文件：Git安装路径\etc\gitconfig</li>
+<li>对当前用户的所有项目有效</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --gobal user.name <span class="pl-s"><span class="pl-pds">'</span>HappyDog-yy<span class="pl-pds">'</span></span>
+git config --gobal user.email <span class="pl-s"><span class="pl-pds">'</span>roseyy@xx.com<span class="pl-pds">'</span></span></pre></div>
+<ul>
+<li>系统配置文件</li>
+<li>对当前电脑系统的所有git用户和所有git项目有效</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --system user.name <span class="pl-s"><span class="pl-pds">'</span>HappyDog-yy<span class="pl-pds">'</span></span>
+git config --system user.email <span class="pl-s"><span class="pl-pds">'</span>roseyy@xx.com<span class="pl-pds">'</span></span>
+
+<span class="pl-k">!!!</span>执行该命令需要root权限</pre></div>
+<ul>
+<li>查看当前生效的配置</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git config --list</pre></div>
+<ul>
+<li>添加远程仓库</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git remote add origin 仓库地址</pre></div>
+<p>该命令默认仅在当前项目生效，相当于加上了 <code class="notranslate">--local</code>。</p>
+<h2>第三章 分支</h2>
+<h3>3.1初识分支</h3>
+<p>不同版本之间通过指针建立联系，v2在v1的基础上修改，增量保存，只保存相对于v1新增和修改的部分。这样不仅更节省空间，生成版本的速度也更快。</p>
+<ul>
+<li>如何解决线上代码出现bug的问题？</li>
+</ul>
+<blockquote>
+<p>创建一个新的分支，对代码进行紧急修复，修复完成之后合并到主分支（默认为master分支）。<br>
+eg.创建的每一个分支都可以起一个名字，在v3的基础上创建bug分支用于修复bug；创建dev分支用于开发新功能。最后将修复完bug的分支合并到master分支上。不同的分支之间可以做环境的隔离。</p>
+</blockquote>
+<h3>3.2分支命令</h3>
+<ul>
+<li>创建新的分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch 新分支名</pre></div>
+<ul>
+<li>查看目前所处分支（*所在行的分支）</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch</pre></div>
+<ul>
+<li>切换分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout 分支名
+<span class="pl-c"><span class="pl-c">#</span>或</span>
+git switch 分支名</pre></div>
+<p>创建新分支bug--&gt;切换到分支bug--&gt;修改代码--&gt; <code class="notranslate">commit</code> 提交版本v4，可创建bug分支的版本v4。</p>
+<ul>
+<li>合并分支<br>
+将bug分支的v4版本合并到master分支上： <code class="notranslate">切换到master分支</code> --&gt; <code class="notranslate">合并</code></li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git merge 要合并的分支</pre></div>
+<blockquote>
+<p>v4和v5都是基于v3进行修改，当v4和v5都修改了v3的同一行，且最后都要合并到v3时，会产生合并冲突，此时需要打开发生冲突的文件，<strong>手动合并</strong>并提交。</p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre class="notranslate">CONFLICT (content): Merge conflict <span class="pl-k">in</span> index.html
+Automatic merge failed<span class="pl-k">;</span> fix conflicts and <span class="pl-k">then</span> commit the result.</pre></div>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/663c91f1-5063-4ad6-9973-1790eb04a2d5"><img width="711" height="346" alt="Image" src="https://github.com/user-attachments/assets/663c91f1-5063-4ad6-9973-1790eb04a2d5" style="max-width: 100%; height: auto; max-height: 346px;; aspect-ratio: 711 / 346; background-color: var(--bgColor-muted); border-radius: 6px; display: block" class="js-gh-image-fallback"></a></p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>v6，解决冲突，bug修复且dev分支新功能上线<span class="pl-pds">'</span></span></pre></div>
+<ul>
+<li>删除分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch -d 分支名</pre></div>
+<h3>3.3工作流</h3>
+<ul>
+<li>Git开发规范<br>
+<code class="notranslate">master</code> 分支存放相对稳定的版本，创建 <code class="notranslate">dev</code> 分支用于开发，版本的更替都在dev分支上，出现相对稳定的版本再合并到 <code class="notranslate">master</code> 分支。</li>
+<li>代码托管仓库<br>
+创建仓库--&gt;推送本地代码至仓库(所有的版本和分支)</li>
+</ul>
+<blockquote>
+<p>github：公共的仓库，private付费<br>
+gitlab：自己买服务器，自建仓库</p>
+</blockquote>
+<ul>
+<li>Github创建仓库<br>
+<code class="notranslate">New repository</code> --&gt; <code class="notranslate">name</code> --&gt; <code class="notranslate">Description简介</code> --&gt; <code class="notranslate"> visibility选择public</code> --&gt; <code class="notranslate">Add README 打开</code> --&gt; <code class="notranslate">.gitignore忽略管理.git隐藏文件夹</code> --&gt; <code class="notranslate">Create respository</code></li>
+</ul>
+<p>创建成功之后，点击 <code class="notranslate">code</code> 可复制远程仓库地址，如 <code class="notranslate">https://github.com/HappyDog-yy/Git_test.git</code>。</p>
+<ul>
+<li>推送本地项目至远程仓库</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">1.给github仓库地址起别名origin
+git remote add origin 远程仓库地址
+2.将Git默认的分支名 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>master<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span> 重命名为 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>main<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span>（Github默认为main）
+git branch -M main
+3.将本地 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>main<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span> 分支的代码推送到远程仓库 <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>origin<span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span>
+git push -u origin main</pre></div>
+<p>其中，<code class="notranslate">-u</code> 代表默认参数，代表以后push时，若不传递参数，默认 <code class="notranslate">push</code> 到 <code class="notranslate">origin</code> 仓库的 <code class="notranslate">main</code> 分支。</p>
+<ul>
+<li>拉取远程仓库代码至本地<br>
+<code class="notranslate">进入目标文件夹</code> --&gt; <code class="notranslate">git clone 仓库地址</code></li>
+<li>家-github-公司协同开发</li>
+</ul>
+<p>1.家代码开发上传至github</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout dev
+git merge master
+touch a1.cpp
+git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>Home code a1.cpp<span class="pl-pds">'</span></span>
+手动提交dev分支代码至远程仓库
+git push origin dev</pre></div>
+<p>2.公司拉取github代码(更新而非克隆)</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout dev
+git pull origin dev</pre></div>
+<p>3.push公司代码</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">touch a2.cpp
+git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>Company code a2.cpp<span class="pl-pds">'</span></span>
+git push origin dev</pre></div>
+<p>···</p>
+<ul>
+<li>开发完毕，提交合并至master分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>开发完毕<span class="pl-pds">'</span></span>
+git push origin master
+git checkout master
+git merge dev
+git push origin master</pre></div>
+<p><strong>注意！</strong> 处于dev分支开发功能时，首先 <strong>合并</strong> master分支的最新代码，在此基础上开发，且<strong>只执行一次</strong>。</p>
+<h3>3.4 rebase的使用</h3>
+<h4>3.4.1同步上游分支</h4>
+<p>假设你在 <code class="notranslate">origin/dev</code> 分支上做开发，主分支 <code class="notranslate">master</code> 上有了新的提交，此时想同步到dev分支：</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>切换主分支，拉取代码</span>
+git checkout master
+git pull origin master
+<span class="pl-c"><span class="pl-c">#</span>dev分支变基</span>
+git checkout dev
+git rebase master</pre></div>
+<ul>
+<li>这样做可以让dev分支上的提交，应用到 <code class="notranslate">master</code> 的最新提交之后。且提交历史为一条直线。</li>
+</ul>
+<h4>3.4.2合并提交、修改记录</h4>
+<ul>
+<li>对最近三次提交记录进行整理</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git rebase -i HEAD~3</pre></div>
+<p>执行后会打开一个vim编辑器，里面列出最近3次提交，以 <code class="notranslate">pick</code> 开头：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e1677040-2dce-422b-8540-f15c07a03432"><img width="693" height="401" alt="Image" src="https://github.com/user-attachments/assets/e1677040-2dce-422b-8540-f15c07a03432" style="max-width: 100%; height: auto; max-height: 401px;; aspect-ratio: 693 / 401; background-color: var(--bgColor-muted); border-radius: 6px; display: block" class="js-gh-image-fallback"></a></p>
+<p>可通过修改pick为图片中 <code class="notranslate">command</code> 内容传递指令，常用的指令如下：</p>
+<ul>
+<li><code class="notranslate">s</code> ：把该提交合并至上一个提交</li>
+<li><code class="notranslate">f</code> ：合并该提交，并丢弃该提交的说明</li>
+<li><code class="notranslate">r</code> ：修改提交说明</li>
+<li><code class="notranslate">e</code> ：修改提交过的代码</li>
+<li><code class="notranslate">pick</code> ：保留该提交</li>
+</ul>
+<p><code class="notranslate">Esc</code> 退出编辑模式 --&gt; <code class="notranslate">:wq</code> 退出交互式</p>
+<ul>
+<li>注意：变基多用于自己的开发记录上，不要在已push的分支或公共分支上 <code class="notranslate">rebase</code>。</li>
+<li>若在 <code class="notranslate">git rebase</code> 的过程中遇到冲突，先解决冲突，后中断或继续 <code class="notranslate">git rebase</code> 的执行：</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git rebase --continue
+git rebase --abort</pre></div>
+<p><code class="notranslate">Beyond Compare</code> ：可帮助快速解决冲突的软件。<br>
+1.安装<br>
+2.在Git中配置<br>
+D:\App\Git\BeyondCompare 5</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>设置当前git仓库的默认合并工具为 ```bc5```.</span>
+git config --local merge.tool bc5
+<span class="pl-c"><span class="pl-c">#</span>指定 ```bc5``` 程序的安装路径</span>
+git config --local mergetool.path <span class="pl-s"><span class="pl-pds">'</span>D:\App\Git\BeyondCompare 5<span class="pl-pds">'</span></span>
+<span class="pl-c"><span class="pl-c">#</span>关闭该工具处理完冲突自动生成的备份文件</span>
+git config --local mergetool.keepBackup <span class="pl-c1">false</span></pre></div>
+<p><code class="notranslate">--local</code> 表示只对当前项目有效。<br>
+3.应用Beyond Compare解决冲突</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git mergetool</pre></div>
+<h2>第四章 多人协同开发</h2>
+<h3>4.1GIt Flow工作流</h3>
+<p>协同开发时，每一个开发者创建一个分支，开发完毕且通过测试之后合并分支。工作流如下图所示：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2bbe5d34-add9-492f-88d6-54db69aab44e"><img src="https://github.com/user-attachments/assets/2bbe5d34-add9-492f-88d6-54db69aab44e" alt="Image" style="max-width: 100%;"></a></p>
+<p>在Github上创建组织，之后邀请成员加入组织便可协同开发组织中的项目。</p>
+<ul>
+<li>为版本添加标签 <code class="notranslate">tag</code> 并推送</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git tag -a v1 -m <span class="pl-s"><span class="pl-pds">'</span>第一版<span class="pl-pds">'</span></span>
+git push origin --tags</pre></div>
+<ul>
+<li>邀请成员加入组织--&gt;参与项目--&gt;修改 <code class="notranslate">Read/Write</code> 权限</li>
+<li>leader做代码Review ：使用 <code class="notranslate">pull request</code> 功能<br>
+<code class="notranslate">Settings</code> 设置--&gt; <code class="notranslate">Branches</code> 分支--&gt; <code class="notranslate">Add branch ruleset</code> 添加分支规则集--&gt; <code class="notranslate">Ruleset Name</code> --&gt;勾选 <code class="notranslate">Require a pull request before merging</code> 所有体检必须先在非目标分支上进行，并通过 <code class="notranslate">pull request</code> 提交，才能被合并。</li>
+<li>employee提交pull request<br>
+<code class="notranslate">new pull request </code> --&gt;选择分支合并--&gt;<code class="notranslate">dev</code>--&gt;<code class="notranslate">dev</code><br>
+<code class="notranslate">ddz</code>分支合并到 <code class="notranslate">dev</code> 分支： <code class="notranslate">base</code>为 <code class="notranslate">dev</code>，<code class="notranslate">compare</code>为 <code class="notranslate">ddz</code></li>
+</ul>
+<h3>4.2 开源仓库贡献代码流程</h3>
+<ul>
+<li>fork源代码：将别人的源代码拷贝到自己的远程仓库</li>
+<li>在自己仓库修改代码</li>
+<li>给源代码的作者提交修复bug的申请（pull request）</li>
+</ul>
+<h3>4.3 Git免密码登录</h3>
+<ul>
+<li>URL实现</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">仓库地址：https://github.com/HappyDog-yy/Git_test.git
+添加用户信息：https://用户名：密码@github.com/HappyDog-yy/Git_test.git</pre></div>
+<ul>
+<li>SSH实现</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">1.生成公钥和私钥
+   ssh-keygen
+   默认放在~/.ssh目录下，is_rsa.pub公钥、id_rsa.pub私钥
+2.拷贝公钥内容，设置到github中
+3.在git本地配置ssh地址
+   git remote add origin git@github.com:HappyDog-yy/Git_test.git
+4.使用
+   git push origin master</pre></div>
+<ul>
+<li>Git自动管理凭证</li>
+<li>Github CLI<br>
+使用GitHub官方命令行工具 <code class="notranslate">gh</code> 直接操作，命令为以下格式：</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">gh repo clone HappyDog-yy/Git_test</pre></div>
+<h3>4.4 Git忽略文件</h3>
+<p>不希望Git管理文件夹中的所有文件时，创建 <code class="notranslate">.gitignore</code> 文件，在该文件中列出不希望被管理的文件名，此时使用 <code class="notranslate">git status</code> 查看文件时，检测不到已列文件。</p>
+<ul>
+<li>忽略文件或目录</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>忽略dist目录</span>
+dist/
+
+<span class="pl-c"><span class="pl-c">#</span>忽略pack.json文件</span>
+pack.json</pre></div>
+<ul>
+<li>通配符*</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>忽略所有log后缀的文件</span>
+<span class="pl-k">*</span>.log
+<span class="pl-c"><span class="pl-c">#</span>但不忽略today.log--&gt;取反</span>
+<span class="pl-k">!</span>today.log
+
+<span class="pl-c"><span class="pl-c">#</span>忽略所有temp开头的文件</span>
+temp<span class="pl-k">*</span></pre></div>
+<ul>
+<li>递归匹配**：可匹配任意深度的目录</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>忽略项目中任意位置的test.log文件</span>
+<span class="pl-k">**</span>/test.log
+
+<span class="pl-c"><span class="pl-c">#</span>忽略所有目录下的_pycache_文件夹</span>
+<span class="pl-k">**</span>/_pycache_/</pre></div>
+<p>由于我们的关注有限，可在<a href="https://github.com/github/gitignore">该地址</a>找到各种语言的、较为全面的 <code class="notranslate">.gitignore</code> 文件</p>
+<h3>4.5 任务管理</h3>
+<ul>
+<li>
+<p>issues：文档以及任务管理</p>
+</li>
+<li>
+<p>wiki：对项目的介绍等，项目文档说明。</p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/1935037099154842636" rel="nofollow">超全Git八股附上~</a></p>
+</li>
+</ul></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://HappyDog-yy.github.io/GmeekBlog">HappyDog</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.disabled=true;
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","HappyDog-yy/GmeekBlog");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
